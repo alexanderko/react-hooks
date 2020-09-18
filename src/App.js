@@ -5,7 +5,17 @@ class App extends Component {
 
   constructor() {
     super();
-    this.state = { counter: 0 }
+    this.state = { counter: 0, seconds: 0 }
+  }
+
+  componentDidMount() {
+    setInterval(() => {
+      this.tick()
+    }, 1000);
+  }
+
+  tick() {
+    this.setState({seconds: this.state.seconds + 1})
   }
 
   render() {
@@ -13,6 +23,7 @@ class App extends Component {
       <div>
         <p>Counter: {this.state.counter}</p>
         <button onClick={() => this.setState({counter: this.state.counter + 1})}>Add</button>
+        <p>Seconds since start: {this.state.seconds}</p>
       </div>
     );
   }
