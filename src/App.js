@@ -12,7 +12,7 @@ function App() {
   const [timers, setTimers] = useState([
     {
       name: 'Torn off gas',
-      duration: 5 * 60
+      duration: 5
     },
     {
       name: 'Workout',

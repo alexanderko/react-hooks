@@ -1,29 +1,26 @@
-import React, { Component } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
-export class Timer extends Component {
+function useTimer(duration) {
+    const [secondsLeft, setSecondsLeft] = useState(duration);
+    const secondsRef = useRef();
+    secondsRef.current = secondsLeft;
+    const shouldCountDown = !!secondsLeft;
 
-  constructor(props) {
-      super();
-      this.state = { secondsLeft: props.duration }
-  }
+    useEffect(() => {
+        if (!shouldCountDown) return;
+        const interval = setInterval(() => {
+            setSecondsLeft(secondsRef.current - 1);
+        }, 1000);
+        return () => clearInterval(interval);
+    }, [shouldCountDown])
 
-  componentDidMount() {
-    this.interval = setInterval(() => {
-      console.count(this.props.name);
-      this.setState({secondsLeft: this.state.secondsLeft - 1});
-    }, 1000);
-  }
+    return secondsLeft;
+}
 
-  componentWillUnmount() {
-    clearInterval(this.interval);
-  }
-
-  render() {
-    const { name } = this.props;
-    const { secondsLeft } = this.state;
+export function Timer(props) {
+    const secondsLeft = useTimer(props.duration);
     const time = `${Math.floor(secondsLeft / 60)}:${secondsLeft % 60}`
     return (
-        <div>Timer {name}: {time}</div>
+        <div>Timer {props.name}: {time}</div>
     )
-  }
 }
