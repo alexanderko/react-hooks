@@ -8,7 +8,14 @@ export class Timer extends Component {
   }
 
   componentDidMount() {
-      setInterval(() => this.setState({secondsLeft: this.state.secondsLeft - 1}), 1000);
+    this.interval = setInterval(() => {
+      console.count(this.props.name);
+      this.setState({secondsLeft: this.state.secondsLeft - 1});
+    }, 1000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
   }
 
   render() {
