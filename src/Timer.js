@@ -21,6 +21,6 @@ export function Timer(props) {
     const secondsLeft = useTimer(props.duration);
     const time = `${Math.floor(secondsLeft / 60)}:${secondsLeft % 60}`
     return (
-        <div>Timer {props.name}: {time}</div>
+        <div>⏱ {props.name}: {time}</div>
     )
 }
